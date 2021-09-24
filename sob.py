@@ -63,4 +63,4 @@ else:
     # The restore option
     #if flag == '-r':
     
-    print("Done!")
+    print("\nDone.\n")
