@@ -3,4 +3,4 @@
 
 ### Got a new computer and you want to migrate all your osu! songs?
 ### No need to s.o.b. (:wink:) over having to manually do this.
-### "s.o.b." python script will do this for you.
+### "sob" python script will back up and restore songs for you.
