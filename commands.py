@@ -3,6 +3,8 @@ import os.path
 import sys
 import download
 
+#####################################
+
 def backup(song_list, song_dir_path):
 
     # Getting the names of each folder, since its the same as the song name
@@ -82,7 +84,7 @@ def backup(song_list, song_dir_path):
     print(f"\nSuccesfully backed up {len(song_list)} songs!")
 
 
-
+#####################################
 
 def restore(backup_file_path):
 
@@ -99,3 +101,5 @@ def restore(backup_file_path):
             song_link_list.append(song_list_json[x]["Link"])
     
     download.download_func(song_filename_list, song_link_list)    
+    
+    print(f"\nDownloaded {len(song_filename_list)} songs!\n") 
