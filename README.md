@@ -1,13 +1,20 @@
 # Songs Osu! Backup (s.o.b.)
-> #### A python script that backs up your osu! songs.
+> #### A python script that backs up and restores your osu! songs.
 #
 **Got a new computer and you want to migrate all your osu! songs?\
 No need to s.o.b. over having to manually do this. (pun intended :wink:)\
-sob" python script will back up and restore your songs for you.**
+Sob python script will back up and restore your songs for you.**
+
+
+## Requirments
+**_Restoring songs will require an osu! account._**
+- You will need python 3
+- You will need to install the requests library.
+
+To install requests library execute: `python -m pip install requests`
+
 
 ## Usage
-
-**_Restoring songs will require an osu! account._**
 
 - **Backing up:**
   - Navigate in the directory the python script is located.
