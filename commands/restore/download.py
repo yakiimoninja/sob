@@ -34,23 +34,9 @@ download_headers = {
 }
 
 def download_func(song_filename_dict, song_link_dict):
-    
-    # Getting username from console
-    payload["username"] = input("\nEnter your username: ").strip()
-    
-    # Checking for username validity
-    if payload["username"] == "":
-        print("\nEnter a valid username!\n")
-        sys.exit()
 
-    # Getting password from console
-    payload["password"] = input("\nEnter your password: ").strip()
-
-    # Checking for password validity
-    if payload["password"] == "" and len(payload["password"]) < 8:
-        print("\nEnter a valid password!\n")
-        sys.exit()
-
+    # Getting credentials
+    get_credentials()
 
     # Opening a request session
     with requests.Session() as s:
@@ -106,3 +92,21 @@ def download_func(song_filename_dict, song_link_dict):
                 file.write(download_request.content)
 
             time.sleep(1)
+
+def get_credentials():
+    
+    # Getting username from console
+    payload["username"] = input("\nEnter your username: ").strip()
+    
+    # Checking for username validity
+    if payload["username"] == "":
+        print("\nEnter a valid username!\n")
+        sys.exit()
+
+    # Getting password from console
+    payload["password"] = input("\nEnter your password: ").strip()
+
+    # Checking for password validity
+    if payload["password"] == "" and len(payload["password"]) < 8:
+        print("\nEnter a valid password!\n")
+        sys.exit()

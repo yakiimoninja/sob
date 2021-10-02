@@ -1,19 +1,16 @@
 import json
 import os.path
+#from folders import create_folder
+from commands.folders import create_folder
 
 
 def backup(song_dict, song_dir_path):
 
-    # Creating the backup folder if it doesnt exist
-    if os.path.exists("osu!backup"):
-        pass
-    else:
-        os.mkdir("osu!backup")
-
+    # This will create the backup folders needed
+    create_folder(False)
 
     # Getting the names of each folder, since its the same as the song name
     folder_list = [item for item in os.listdir(song_dir_path) if os.path.isdir(os.path.join(song_dir_path, item)) ]
-
 
     # Iterating the list of folder names
     for x in range(len(folder_list)):
@@ -29,8 +26,7 @@ def backup(song_dict, song_dir_path):
                 song_dict.append({
                     "Title": "",
                     "File Name": "",
-                    "Link": "",
-                    "No Video": False
+                    "Link": ""
                 })           
             
             # Iterating the letters in each line
@@ -59,7 +55,7 @@ def backup(song_dict, song_dir_path):
             if "[no video]" in folder_list[x]:
 
                 # Setting the "No Video" to True in list (to be json)
-                song_dict[x]["No Video"] = True
+                #song_dict[x]["No Video"] = True
 
                 # Formatting the string to remove the "no video"
                 # and setting it as the new title

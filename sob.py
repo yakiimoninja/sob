@@ -1,7 +1,7 @@
 import sys
 import os.path
-from backup import backup
-from restore import restore
+from commands.backup.backup import backup
+from commands.restore.restore import restore
 
 help_message = "\nTo back-up your songs, execute              ->  python sob.py -b 'path_to_osu_folder'\nTo download your backed-up songs, execute   ->  python sob.py -r 'path_to_backup_file'\n"
 
@@ -9,8 +9,7 @@ song_dict = [
     {
         "Title": "",
         "File Name": "",
-        "Link": "",
-        "No Video": True
+        "Link": ""
     }
 ]
 
@@ -35,10 +34,13 @@ else:
         print("\nWrong flag!\n" + help_message)
         sys.exit()
 
+
     # Checking for correct path format
     # Correcting the path if its missing backslash
     if "\\" not in path_param[-1]:
         path_param = path_param + "\\"
+
+
 
     # The back-up option.
     if flag == '-b':
@@ -55,30 +57,33 @@ else:
             print("\nThis isn't the osu folder!\nCheck your path again!\n")
             sys.exit()
 
-
         # Executing the backup function containing all the logic
         backup(song_dict, song_dir_path)
+
 
 
     # The restore option
     if flag == "-r":
 
+        # Assigning path variable for the 
+        # location of the backup file
         osu_backup_path = path_param
 
+        # Checking validity of path and formatting accordingly
         if "osu_backup.json" not in path_param:
             osu_backup_path = path_param + "osu_backup.json"
         if "osu_backup.json" in path_param:
             osu_backup_path = osu_backup_path[:-1]
 
-        #print(osu_backup_path)
-
+        # Prompt for bad path
         if os.path.exists(osu_backup_path) == True:
             pass 
         else:
             print("\nNo osu_backup.json file found!\nCheck your path again!\n")
             sys.exit()
 
+        # Executing the restoration function containing all the logic
         restore(osu_backup_path)
         
-    
-    print("\nDone.\n")
+
+    print("\nExitting.\n")
