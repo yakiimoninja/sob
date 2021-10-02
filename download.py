@@ -96,6 +96,9 @@ def download_func(song_filename_dict, song_link_dict):
             if download_request.status_code == 200:
                 print(f"\nDownloading {x+1} out of {len(song_filename_dict)}")
                 pass
+            else:
+                print(f"Status Code: {download_request.status_code}!")
+                sys.exit()
 
             
             # Writting the downloaded file to the songs folder
