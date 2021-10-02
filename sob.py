@@ -2,7 +2,7 @@ import sys
 import os.path
 from utils.backup import backup
 from utils.restore.restore import restore
-from utils.args.args import param_checks
+from utils.args.args import args_checks
 
 
 # Song list format that will translated to a json
@@ -18,7 +18,7 @@ flag = ""
 path_param = ""
 
 # Checks the validity of the arguments
-args_checks(flag, path_param)
+flag, path_param = args_checks()
 
 # Correctly formats the path
 

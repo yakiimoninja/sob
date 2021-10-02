@@ -5,7 +5,7 @@ from utils.args import path_cf
 help_message = "\n\nTo back up:\nIf osu! is installed at the default location      ->  python sob.py -b\nIf osu! isn't installed at the default location   ->  python sob.py -b 'path_to_osu_folder'\n\nTo restore:\nTo download all your backed-up songs, execute     ->  python sob.py -r 'path_to_backup_file'\n"
 
 
-def args_checks(flag, path_param):
+def args_checks():
 
     # For cases of 1 received console argument
     if len(sys.argv) == 2:
@@ -62,3 +62,5 @@ def args_checks(flag, path_param):
     # For more than 2 console arguments
     else:
         print("\nInvalid flags provided!\n", help_message)
+
+    return flag, path_param

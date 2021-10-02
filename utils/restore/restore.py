@@ -1,6 +1,6 @@
 import json
 import utils.restore.download
-from utils.folders import create_folder
+from utils.folder_create import create_folder
 
 
 def restore(backup_file_path):

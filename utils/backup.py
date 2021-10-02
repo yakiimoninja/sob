@@ -1,6 +1,6 @@
 import json
 import os.path
-from utils.folders import create_folder
+from utils.folder_create import create_folder
 
 
 def backup(song_list, song_dir_path):
