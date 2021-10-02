@@ -1,11 +1,15 @@
 import json
 import os.path
-import sys
-import download
 
-#####################################
 
-def backup(song_list, song_dir_path):
+def backup(song_dict, song_dir_path):
+
+    # Creating the backup folder if it doesnt exist
+    if os.path.exists("osu!backup"):
+        pass
+    else:
+        os.mkdir("osu!backup")
+
 
     # Getting the names of each folder, since its the same as the song name
     folder_list = [item for item in os.listdir(song_dir_path) if os.path.isdir(os.path.join(song_dir_path, item)) ]
@@ -20,9 +24,9 @@ def backup(song_list, song_dir_path):
             song_link = ""
             space_counter = 0
 
-            # Creating new list entries
+            # Creating new dict entries
             if x > 0:
-                song_list.append({
+                song_dict.append({
                     "Title": "",
                     "File Name": "",
                     "Link": "",
@@ -40,7 +44,7 @@ def backup(song_list, song_dir_path):
                     # and setting a new title without the numbers        
                     song_title = folder_list[x]
                     song_title = song_title[y+1:]
-                    song_list[x]["Title"] = song_title  # (to be json)
+                    song_dict[x]["Title"] = song_title  # (to be json)
 
                     # Formatting the following string to produce 
                     # the numbers used in the link
@@ -55,12 +59,12 @@ def backup(song_list, song_dir_path):
             if "[no video]" in folder_list[x]:
 
                 # Setting the "No Video" to True in list (to be json)
-                song_list[x]["No Video"] = True
+                song_dict[x]["No Video"] = True
 
                 # Formatting the string to remove the "no video"
                 # and setting it as the new title
                 song_title = song_title[:-11]
-                song_list[x]["Title"] = song_title  # (to be json)
+                song_dict[x]["Title"] = song_title  # (to be json)
 
                 # Contructing the link of the song
                 song_link = "https://osu.ppy.sh/beatmapsets/" + song_number + "/download?noVideo=1"
@@ -68,38 +72,17 @@ def backup(song_list, song_dir_path):
             else:
                 song_link = "https://osu.ppy.sh/beatmapsets/" + song_number + "/download"
             
-            # Setting the link in the songs list (to be json)
-            song_list[x]["Link"] = song_link
+            # Setting the link in the songs dict (to be json)
+            song_dict[x]["Link"] = song_link
 
             # Setting the file name and extension (to be json)
             beatmap_filename = folder_list[x] + ".osz"
-            song_list[x]["File Name"] = beatmap_filename
+            song_dict[x]["File Name"] = beatmap_filename
 
 
         # Opening and writing the backup in a json file            
-        with open("osu_backup.json", "w") as output:
-            json.dump(song_list, output, ensure_ascii=False, indent= 4)
+        with open("osu!backup/osu_backup.json", "w") as output:
+            json.dump(song_dict, output, ensure_ascii= False, indent= 4)
     
     
-    print(f"\nSuccesfully backed up {len(song_list)} songs!")
-
-
-#####################################
-
-def restore(backup_file_path):
-
-    song_filename_list = []
-    song_link_list = []
-
-    with open(backup_file_path, "r") as backup_file:
-        
-        song_list_json = json.load(backup_file)
-
-        for x in range(len(song_list_json)):
-
-            song_filename_list.append(song_list_json[x]["File Name"])
-            song_link_list.append(song_list_json[x]["Link"])
-    
-    download.download_func(song_filename_list, song_link_list)    
-    
-    print(f"\nDownloaded {len(song_filename_list)} songs!\n") 
+    print(f"\nSuccesfully backed up {len(song_dict)} songs!")

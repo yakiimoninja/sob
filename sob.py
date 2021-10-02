@@ -1,10 +1,11 @@
 import sys
 import os.path
-import commands
+from backup import backup
+from restore import restore
 
 help_message = "\nTo back-up your songs, execute              ->  python sob.py -b 'path_to_osu_folder'\nTo download your backed-up songs, execute   ->  python sob.py -r 'path_to_backup_file'\n"
 
-song_list = [
+song_dict = [
     {
         "Title": "",
         "File Name": "",
@@ -56,7 +57,7 @@ else:
 
 
         # Executing the backup function containing all the logic
-        commands.backup(song_list, song_dir_path)
+        backup(song_dict, song_dir_path)
 
 
     # The restore option
@@ -77,7 +78,7 @@ else:
             print("\nNo osu_backup.json file found!\nCheck your path again!\n")
             sys.exit()
 
-        commands.restore(osu_backup_path)
+        restore(osu_backup_path)
         
     
     print("\nDone.\n")

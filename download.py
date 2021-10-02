@@ -1,8 +1,8 @@
 import requests
 import json
 import sys
-import os
 import time
+
 
 url = "https://osu.ppy.sh/home"
 login_url = "https://osu.ppy.sh/session"
@@ -33,16 +33,20 @@ download_headers = {
     "Upgrade-Insecure-Requests": "1"
 }
 
-def download_func(song_filename_list, song_link_list):
+def download_func(song_filename_dict, song_link_dict):
     
+    # Getting username from console
     payload["username"] = input("\nEnter your username: ").strip()
-
+    
+    # Checking for username validity
     if payload["username"] == "":
         print("\nEnter a valid username!\n")
         sys.exit()
 
+    # Getting password from console
     payload["password"] = input("\nEnter your password: ").strip()
 
+    # Checking for password validity
     if payload["password"] == "" and len(payload["password"]) < 8:
         print("\nEnter a valid password!\n")
         sys.exit()
@@ -83,27 +87,19 @@ def download_func(song_filename_list, song_link_list):
             sys.exit()
 
 
-        # Creating a songs folder if it doesnt exist
-        if os.path.exists("songs"):
-            pass
-        else:
-            os.mkdir("songs")
-
-
-        # Iterating through the songs list
-        for x in range(len(song_filename_list)):
+        # Iterating through the songs dict
+        for x in range(len(song_filename_dict)):
 
             # Sending a download request
-            download_request = s.get(song_link_list[x], headers= download_headers)
+            download_request = s.get(song_link_dict[x], headers= download_headers, stream=True)
 
             if download_request.status_code == 200:
-                print(f"\nDownloading {x+1} out of {len(song_filename_list)}")
+                print(f"\nDownloading {x+1} out of {len(song_filename_dict)}")
                 pass
 
-            time.sleep(1)
             
             # Writting the downloaded file to the songs folder
-            with open ("songs/"+song_filename_list[x], "wb") as file:
+            with open ("osu!backup/songs/"+song_filename_dict[x], "wb") as file:
                 file.write(download_request.content)
 
             time.sleep(1)
