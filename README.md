@@ -26,13 +26,13 @@ To install requests library execute: `python -m pip install requests`
    
  This will create a `osu!backup` folder in the same directory as the script.\
  Inside this folder you will find:
-- A `osu_backup.json` file containing all the song titles and their respective links.
-- And the following files: `collection.db`, `osu!.db`, `presence.db`, `scores.db`.
+- A `osu!backup.json` file containing all the song titles and their respective links.
+- And the following files: `collection.db`, `osu!.db`, `scores.db`.
   
 ### Restoring:
   - Navigate in the directory the python script is located.
-  - Execute the script with the `-r` flag, followed by the `osu_backup.json` path.
-  - `python sob.py -r "C:\Example\Location\osu_backup.json"`
+  - Execute the script with the `-r` flag, followed by the `osu!backup` folder path.
+  - `python sob.py -r "C:\Example\Location\osu!backup"`
   - You will be promted to provide your account credentials.
   
   This will create a `songs` folder in the same directory as the script, containing all the downloaded `osz` beatmap files.
