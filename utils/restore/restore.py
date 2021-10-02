@@ -1,5 +1,5 @@
 import json
-from utils.download import download_func
+import utils.restore.download
 from utils.folders import create_folder
 
 
@@ -24,6 +24,6 @@ def restore(backup_file_path):
             song_link_list.append(songs_json[x]["Link"])
     
     # Executing the download function on the song lists
-    download_func(song_filename_list, song_link_list)    
+    download.download_func(song_filename_list, song_link_list)    
     
     print(f"\nDownloaded {len(song_filename_list)} beatmaps!\n")
