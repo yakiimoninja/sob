@@ -33,7 +33,7 @@ download_headers = {
     "Upgrade-Insecure-Requests": "1"
 }
 
-def download_func(song_filename_dict, song_link_dict):
+def download_func(song_filename_list, song_link_list):
 
     # Getting credentials
     get_credentials()
@@ -61,7 +61,7 @@ def download_func(song_filename_dict, song_link_dict):
 
         # Checking to see if login was succesful
         if login_request.status_code == 200:
-            print("\nSuccesfully logged in!\n")
+            print("\n\nSuccesfully logged in!\n\n")
             pass
         
         if login_request.status_code <= 400 and login_request.status_code > 500 and login_request.status_code != 429:
@@ -73,25 +73,26 @@ def download_func(song_filename_dict, song_link_dict):
             sys.exit()
 
 
-        # Iterating through the songs dict
-        for x in range(len(song_filename_dict)):
+        # Iterating through the songs list
+        for x in range(len(song_filename_list)):
 
             # Sending a download request
-            download_request = s.get(song_link_dict[x], headers= download_headers, stream=True)
+            download_request = s.get(song_link_list[x], headers= download_headers, stream=True)
 
             if download_request.status_code == 200:
-                print(f"\nDownloading {x+1} out of {len(song_filename_dict)}")
+                print(f"Downloading {x+1} out of {len(song_filename_list)} beatmaps!\n")
                 pass
             else:
-                print(f"Status Code: {download_request.status_code}!")
+                print(f"Status Code: {download_request.status_code}!\n")
                 sys.exit()
 
             
             # Writting the downloaded file to the songs folder
-            with open ("osu!backup/songs/"+song_filename_dict[x], "wb") as file:
+            with open ("osu!backup/songs/"+song_filename_list[x], "wb") as file:
                 file.write(download_request.content)
 
             time.sleep(1)
+
 
 def get_credentials():
     

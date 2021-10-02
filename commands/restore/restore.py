@@ -5,8 +5,8 @@ from commands.folders import create_folder
 
 def restore(backup_file_path):
 
-    song_filename_dict = []
-    song_link_dict = []
+    song_filename_list = []
+    song_link_list = []
 
     # This will create the backup folders needed
     create_folder(True)
@@ -17,9 +17,9 @@ def restore(backup_file_path):
 
         for x in range(len(songs_json)):
 
-            song_filename_dict.append(songs_json[x]["File Name"])
-            song_link_dict.append(songs_json[x]["Link"])
+            song_filename_list.append(songs_json[x]["File Name"])
+            song_link_list.append(songs_json[x]["Link"])
     
-    download_func(song_filename_dict, song_link_dict)    
+    download_func(song_filename_list, song_link_list)    
     
-    print(f"\nDownloaded {len(song_filename_dict)} beatmaps!\n")
+    print(f"\nDownloaded {len(song_filename_list)} beatmaps!\n")

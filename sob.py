@@ -5,7 +5,7 @@ from commands.restore.restore import restore
 
 help_message = "\nTo back-up your songs, execute              ->  python sob.py -b 'path_to_osu_folder'\nTo download your backed-up songs, execute   ->  python sob.py -r 'path_to_backup_file'\n"
 
-song_dict = [
+song_list = [
     {
         "Title": "",
         "File Name": "",
@@ -58,7 +58,7 @@ else:
             sys.exit()
 
         # Executing the backup function containing all the logic
-        backup(song_dict, song_dir_path)
+        backup(song_list, song_dir_path)
 
 
 
@@ -70,16 +70,16 @@ else:
         osu_backup_path = path_param
 
         # Checking validity of path and formatting accordingly
-        if "osu_backup.json" not in path_param:
-            osu_backup_path = path_param + "osu_backup.json"
-        if "osu_backup.json" in path_param:
+        if "osu!backup.json" not in path_param:
+            osu_backup_path = path_param + "osu!backup.json"
+        if "osu!backup.json" in path_param:
             osu_backup_path = osu_backup_path[:-1]
 
         # Prompt for bad path
         if os.path.exists(osu_backup_path) == True:
             pass 
         else:
-            print("\nNo osu_backup.json file found!\nCheck your path again!\n")
+            print("\nNo osu!backup.json file found!\nCheck your path again!\n")
             sys.exit()
 
         # Executing the restoration function containing all the logic
