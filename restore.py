@@ -31,4 +31,4 @@ def restore(backup_file_path):
     
     download.download_func(song_filename_dict, song_link_dict)    
     
-    print(f"\nDownloaded {len(song_filename_dict)} songs!\n") 
+    print(f"\nDownloaded {len(song_filename_dict)} songs!\n")
