@@ -1,10 +1,11 @@
 import sys
 import os.path
-from commands.backup.backup import backup
-from commands.restore.restore import restore
+from utils.backup import backup
+from utils.restore import restore
+from utils.params import param_checks
 
-help_message = "\nTo back-up your songs, execute              ->  python sob.py -b 'path_to_osu_folder'\nTo download your backed-up songs, execute   ->  python sob.py -r 'path_to_backup_file'\n"
 
+# Song list format that will translated to a json
 song_list = [
     {
         "Title": "",
@@ -15,31 +16,14 @@ song_list = [
 
 
 try:
-    flag = sys.argv[1]
-    flag = flag.strip()
-    path_param = sys.argv[2]
-    path_param = path_param.strip()
 
+    flag, path_param = param_checks()
 
 except IndexError:
     print("\nNo path provided!\n")
 
 
 else:
-
-    # Checks if the flag provided is valid
-    if flag == "-b" or flag == "-r":
-        pass
-    else:
-        print("\nWrong flag!\n" + help_message)
-        sys.exit()
-
-
-    # Checking for correct path format
-    # Correcting the path if its missing backslash
-    if "\\" not in path_param[-1]:
-        path_param = path_param + "\\"
-
 
 
     # The back-up option.
@@ -50,6 +34,7 @@ else:
         osu_exe_path = path_param + "osu!.exe"
         song_dir_path = path_param + "Songs"        
         
+        print(osu_exe_path, song_dir_path)
         # Checks if the osu!.exe and "Songs" folder is present
         if os.path.exists(osu_exe_path) == True and os.path.exists(song_dir_path) == True:
             pass 
