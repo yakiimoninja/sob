@@ -33,7 +33,7 @@ download_headers = {
     "Upgrade-Insecure-Requests": "1"
 }
 
-def download_func(song_filename_list, song_link_list):
+def download(song_filename_list, song_link_list):
 
     # Getting credentials
     get_credentials()
@@ -58,14 +58,12 @@ def download_func(song_filename_list, song_link_list):
         # Making a login request
         login_request = s.post(login_url, data= payload, headers= headers)
 
-        print(login_request.status_code)
-
         # Checking to see if login was succesful
         if login_request.status_code == 200:
             print("\nSuccesfully logged in!\n")
             pass
         
-        if login_request.status_code >= 400 and login_request.status_code > 500 and login_request.status_code != 429:
+        if login_request.status_code >= 400 and login_request.status_code < 500 and login_request.status_code != 429:
             print("\nFailed to log in!\n\nCheck your credentials!\n")
             sys.exit()
         

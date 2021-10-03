@@ -24,6 +24,6 @@ def restore(backup_file_path):
             song_link_list.append(songs_json[x]["Link"])
     
     # Executing the download function on the song lists
-    download.download_func(song_filename_list, song_link_list)    
+    download.download(song_filename_list, song_link_list)    
     
     print(f"\nDownloaded {len(song_filename_list)} beatmaps!\n")
