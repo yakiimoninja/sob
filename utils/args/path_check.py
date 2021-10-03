@@ -37,8 +37,6 @@ def backup_path_check(path_param):
     # Correcting the path if its missing ending slash
     path_param = slash_check(path_param)
 
-    print(path_param)
-
     # Checking if "osu!backup.json" exists in the path provided
     if "osu!backup.json" not in path_param:
         # If not slap it at the end of the path

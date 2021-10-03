@@ -58,13 +58,14 @@ def download_func(song_filename_list, song_link_list):
         # Making a login request
         login_request = s.post(login_url, data= payload, headers= headers)
 
+        print(login_request.status_code)
 
         # Checking to see if login was succesful
         if login_request.status_code == 200:
-            print("\n\nSuccesfully logged in!\n\n")
+            print("\nSuccesfully logged in!\n")
             pass
         
-        if login_request.status_code <= 400 and login_request.status_code > 500 and login_request.status_code != 429:
+        if login_request.status_code >= 400 and login_request.status_code > 500 and login_request.status_code != 429:
             print("\nFailed to log in!\n\nCheck your credentials!\n")
             sys.exit()
         
@@ -83,7 +84,7 @@ def download_func(song_filename_list, song_link_list):
                 print(f"Downloading {x+1} out of {len(song_filename_list)} beatmaps!\n")
                 pass
             else:
-                print(f"Status Code: {download_request.status_code}!\n")
+                print(f"\nStatus Code: {download_request.status_code}!\n")
                 sys.exit()
 
             
