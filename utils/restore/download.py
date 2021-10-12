@@ -58,6 +58,7 @@ def download(song_filename_list, song_link_list):
                 headers["X-CSRF-Token"] = lines[68:-2]
                 break
         
+
         # Making a login request
         login_request = s.post(login_url, data= payload, headers= headers)
 
@@ -77,10 +78,12 @@ def download(song_filename_list, song_link_list):
             print(f"Status code: {login_request.status_code}\n")
             sys.exit()
     
+
     # Multi threading
     for i in range(len(song_filename_list)):
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 executor.submit(get_file, song_filename_list, song_link_list, i, s)
+
 
     # Ending print
     print(f"Downloaded {len(song_filename_list)} beatmaps!\n")
@@ -106,6 +109,7 @@ def get_file(song_filename_list, song_link_list, i, s):
     # Writting the downloaded file to the songs folder
     with open ("osu!backup/songs/"+ song_filename_list[i], "wb") as file:
         file.write(download_request.content)
+
 
 # Getting credentials
 def get_credentials():
