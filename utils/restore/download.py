@@ -64,22 +64,23 @@ def download(song_filename_list, song_link_list):
 
         # Checking to see if login was succesful
         if login_request.status_code == 200:
-            print("\nSuccesfully logged in!\n")
+            print(f"\n{login_request.status_code} Succesfully logged in!\n")
             pass
         
         if login_request.status_code >= 400 and login_request.status_code < 500 and login_request.status_code != 429:
-            print("\nFailed to log in!\n\nCheck your credentials!\n")
-            print(login_request.status_code)
+            print(f"\n{login_request.status_code} Failed to log in!\n\nCheck your credentials!\n")
             sys.exit()
         
         if login_request.status_code == 429:
-            print("\nToo many requests!\n")
+            print(f"\n{login_request.status_code} Too many requests!\n")
             sys.exit()
     
     # Multi threading
     for i in range(len(song_filename_list)):
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 executor.submit(get_file, song_filename_list, song_link_list, i, s)
+
+    print(f"Downloaded {len(song_filename_list)} beatmaps!\n")
 
 
 # Getting the beatmap file (called by the thread pool executor)
@@ -94,7 +95,7 @@ def get_file(song_filename_list, song_link_list, i, s):
         pass
     # If download request isnt succesful
     else:
-        print(f"\nStatus Code: {download_request.status_code}!\n")
+        print(f"\nStatus code: {download_request.status_code}!\n")
         sys.exit()
 
     
