@@ -58,21 +58,23 @@ def download(song_filename_list, song_link_list):
                 headers["X-CSRF-Token"] = lines[68:-2]
                 break
         
-
         # Making a login request
         login_request = s.post(login_url, data= payload, headers= headers)
 
         # Checking to see if login was succesful
         if login_request.status_code == 200:
-            print(f"\n{login_request.status_code} Succesfully logged in!\n")
+            print("\nSuccesfully authenticated!\n")
+            print(f"Status code: {login_request.status_code}\n")
             pass
         
         if login_request.status_code >= 400 and login_request.status_code < 500 and login_request.status_code != 429:
-            print(f"\n{login_request.status_code} Failed to log in!\n\nCheck your credentials!\n")
+            print("\nFailed to authenticate!")
+            print(f"Status code: {login_request.status_code}\n")
             sys.exit()
         
         if login_request.status_code == 429:
-            print(f"\n{login_request.status_code} Too many requests!\n")
+            print("\nToo many requests!")
+            print(f"Status code: {login_request.status_code}\n")
             sys.exit()
     
     # Multi threading
@@ -80,6 +82,7 @@ def download(song_filename_list, song_link_list):
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 executor.submit(get_file, song_filename_list, song_link_list, i, s)
 
+    # Ending print
     print(f"Downloaded {len(song_filename_list)} beatmaps!\n")
 
 
@@ -95,7 +98,8 @@ def get_file(song_filename_list, song_link_list, i, s):
         pass
     # If download request isnt succesful
     else:
-        print(f"\nStatus code: {download_request.status_code}!\n")
+        print("\nFailed to download!")
+        print(f"Status code: {download_request.status_code}\n")
         sys.exit()
 
     
@@ -103,8 +107,9 @@ def get_file(song_filename_list, song_link_list, i, s):
     with open ("osu!backup/songs/"+ song_filename_list[i], "wb") as file:
         file.write(download_request.content)
 
+# Getting credentials
 def get_credentials():
-    
+
     # Getting username from console
     payload["username"] = input("\nEnter your username: ").strip()
     
@@ -114,7 +119,7 @@ def get_credentials():
         sys.exit()
 
     # Getting password from console
-    payload["password"] = input("\nEnter your password: ").strip()
+    payload["password"] = input("Enter your password: ").strip()
 
     # Checking for password validity
     if payload["password"] == "" and len(payload["password"]) < 8:

@@ -21,7 +21,7 @@ song_list = [
 flag, path_param = args_get()
 
 
-# The back-up option.
+# The backup option.
 if flag == "-b":
 
     # Executing the backup function containing all the logic

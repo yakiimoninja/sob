@@ -79,10 +79,9 @@ def backup(song_list, song_dir_path):
         beatmap_filename = folder_list[x] + ".osz"
         song_list[x]["File Name"] = beatmap_filename
 
-
         # Opening and writing the backup in a json file            
         with open("osu!backup/osu!backup.json", "w") as output:
             json.dump(song_list, output, ensure_ascii= False, indent= 4)
     
-    
+    # Ending print
     print(f"\nSuccesfully backed up {len(song_list)} songs!")
