@@ -1,5 +1,6 @@
 import sys
 import os.path
+import time
 from utils.backup import backup
 from utils.restore.restore import restore
 from utils.args.args import args_get
@@ -32,9 +33,13 @@ if flag == "-b":
 # The restore option
 if flag == "-r":
 
+    start_time = time.time()
+
     # Executing the restoration function containing all the logic
     # Requires the path to the backup directory
     restore(path_param)
     
+    end_time = time.time() - start_time
+    print(end_time)
 
 print("\nExitting.\n")

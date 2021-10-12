@@ -2,6 +2,7 @@ import requests
 import json
 import sys
 import time
+import concurrent.futures
 
 
 url = "https://osu.ppy.sh/home"
@@ -35,10 +36,13 @@ download_headers = {
 
 def download(song_filename_list, song_link_list):
 
+    song_filename_list = song_filename_list
+    song_link_list = song_link_list
     # Getting credentials
     get_credentials()
 
     # Opening a request session
+    #s = requests.Session()
     with requests.Session() as s:
 
         # Getting the page source
@@ -65,33 +69,38 @@ def download(song_filename_list, song_link_list):
         
         if login_request.status_code >= 400 and login_request.status_code < 500 and login_request.status_code != 429:
             print("\nFailed to log in!\n\nCheck your credentials!\n")
+            print(login_request.status_code)
             sys.exit()
         
         if login_request.status_code == 429:
             print("\nToo many requests!\n")
             sys.exit()
+    
+    # Multi threading
+    for i in range(len(song_filename_list)):
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                executor.submit(get_file, song_filename_list, song_link_list, i, s)
 
 
-        # Iterating through the songs list
-        for x in range(len(song_filename_list)):
+# Getting the beatmap file (called by the thread pool executor)
+def get_file(song_filename_list, song_link_list, i, s):
 
-            # Sending a download request
-            download_request = s.get(song_link_list[x], headers= download_headers, stream=True)
+    # Sending a download request
+    download_request = s.get(song_link_list[i], headers= download_headers, stream=True)
 
-            if download_request.status_code == 200:
-                print(f"Downloading {x+1} out of {len(song_filename_list)} beatmaps!\n")
-                pass
-            else:
-                print(f"\nStatus Code: {download_request.status_code}!\n")
-                sys.exit()
+    # If download is succesful 
+    if download_request.status_code == 200:
+        print(f"Downloading {i+1} out of {len(song_filename_list)} beatmaps!\n")
+        pass
+    # If download request isnt succesful
+    else:
+        print(f"\nStatus Code: {download_request.status_code}!\n")
+        sys.exit()
 
-            
-            # Writting the downloaded file to the songs folder
-            with open ("osu!backup/songs/"+song_filename_list[x], "wb") as file:
-                file.write(download_request.content)
-
-            time.sleep(1)
-
+    
+    # Writting the downloaded file to the songs folder
+    with open ("osu!backup/songs/"+ song_filename_list[i], "wb") as file:
+        file.write(download_request.content)
 
 def get_credentials():
     
