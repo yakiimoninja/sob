@@ -30,7 +30,9 @@ S.o.b. will back up and restore your songs for you.**
 ## Usage
 
 ### Exe file:
-
+  
+  You can get the `exe` from the [releases](URL "https://github.com/yakiimoninja/sob/releases") tab.
+  
   Execute the `sob.exe` and you'll be prompted with remaining instructions there.
   
   If `sob.exe` doesn't seem to start you might need to unblock it.\
