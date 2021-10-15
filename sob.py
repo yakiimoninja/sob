@@ -1,9 +1,10 @@
 import sys
-import os.path
+from utils import path_check
 from utils.backup import backup
 from utils.restore.restore import restore
-from utils.args.args import args_get
 
+
+help_message = "\n- To back up all your beatmaps: Press 'b'.\n- To restore all your beatmaps: Press 'r'.\n\n- To exit: Press 'x'.\n"
 
 # Song list format that will translated to a json
 song_list = [
@@ -14,26 +15,60 @@ song_list = [
     }
 ]
 
+print("\n==========================================")
+print("\n\t     Welcome to sob!")
+print("\n==========================================")
+print(help_message)
+flag = input("> ").strip()
 
-# Checks for correct console input
-# Formats the console input
-# Passes the formated input to the variables below
-flag, path_param = args_get()
+# Checking for flag validity
+while not ((flag == "b" or flag == "r" or flag == "x") and flag != ""):
 
-
-# The backup option.
-if flag == "-b":
-
-    # Executing the backup function containing all the logic
-    # Requires the song [list] and the path to the songs directory
-    backup(song_list, path_param)
+    print("\nWrong flag!\n", help_message)
+    flag = input("> ").strip()
 
 
-# The restore option
-if flag == "-r":
+while True:
 
-    # Executing the restoration function containing all the logic
-    # Requires the path to the backup directory
-    restore(path_param)
+    # The backup option
+    if flag == "b":
+        
+        # Checking for default path validity
+        path_param = ""
+        path_param, is_path_correct = path_check.osu_path_check(path_param, default_path=True)
 
-print("\nExitting.\n")
+        # Checking for path validity
+        while is_path_correct != True:
+            print("Please provide the full path to the 'osu!' folder.\n")
+            path_param = input("> ").strip()
+            path_param, is_path_correct = path_check.osu_path_check(path_param, default_path=False)
+
+        # Executing the backup
+        backup(song_list, path_param)
+
+
+    # The restore option
+    if flag == "r":
+        
+        # Checking for default path validity
+        path_param = ""
+        path_param, is_path_correct = path_check.backup_path_check(path_param, default_path=True)
+
+        # Checking for path validity
+        while is_path_correct != True:
+        
+            print("Please provide the full path to the 'osu!backup' folder.\n")
+            path_param = input("> ").strip()
+            path_param, is_path_correct = path_check.backup_path_check(path_param, default_path=False)
+
+        # Executing the restoration
+        restore(path_param)
+
+
+    # The exit option
+    if flag == "x":
+        sys.exit()
+
+
+    print(help_message)
+    flag = input("> ").strip()

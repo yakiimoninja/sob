@@ -1,6 +1,4 @@
 import requests
-import json
-import sys
 import time
 import concurrent.futures
 
@@ -38,11 +36,11 @@ def download(song_filename_list, song_link_list):
 
     song_filename_list = song_filename_list
     song_link_list = song_link_list
+
     # Getting credentials
     get_credentials()
 
     # Opening a request session
-    #s = requests.Session()
     with requests.Session() as s:
 
         # Getting the page source
@@ -64,29 +62,34 @@ def download(song_filename_list, song_link_list):
 
         # Checking to see if login was succesful
         if login_request.status_code == 200:
-            print("\nSuccesfully authenticated!\n")
+            print("\nSuccesfully authenticated!")
             print(f"Status code: {login_request.status_code}\n")
-            pass
+
+
+            start_time = time.time()
+
+            # Multi threading
+            for i in range(len(song_filename_list)):
+                    with concurrent.futures.ThreadPoolExecutor() as executor:
+                        executor.submit(get_file, song_filename_list, song_link_list, i, s)
+
+
+            end_time = time.time()
+            formatted_time = "{:.2f}".format(end_time - start_time)
+            
+            # Ending print
+            print(f"\nFinished downloading {len(song_filename_list)} beatmaps in {formatted_time} second(s)!")
+            
         
         if login_request.status_code >= 400 and login_request.status_code < 500 and login_request.status_code != 429:
             print("\nFailed to authenticate!")
-            print(f"Status code: {login_request.status_code}\n")
-            sys.exit()
+            print(f"Status code: {login_request.status_code}")
+            
         
         if login_request.status_code == 429:
             print("\nToo many requests!")
-            print(f"Status code: {login_request.status_code}\n")
-            sys.exit()
+            print(f"Status code: {login_request.status_code}")
     
-
-    # Multi threading
-    for i in range(len(song_filename_list)):
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                executor.submit(get_file, song_filename_list, song_link_list, i, s)
-
-
-    # Ending print
-    print(f"Downloaded {len(song_filename_list)} beatmaps!\n")
 
 
 # Getting the beatmap file (called by the thread pool executor)
@@ -97,18 +100,16 @@ def get_file(song_filename_list, song_link_list, i, s):
 
     # If download is succesful 
     if download_request.status_code == 200:
-        print(f"Downloading {i+1} out of {len(song_filename_list)} beatmaps!\n")
-        pass
+        print(f"Downloading {i+1} out of {len(song_filename_list)} beatmaps!")
+
+        # Writting the downloaded file to the songs folder
+        with open ("osu!backup/songs/"+ song_filename_list[i], "wb") as file:
+            file.write(download_request.content)
+
     # If download request isnt succesful
     else:
         print("\nFailed to download!")
-        print(f"Status code: {download_request.status_code}\n")
-        sys.exit()
-
-    
-    # Writting the downloaded file to the songs folder
-    with open ("osu!backup/songs/"+ song_filename_list[i], "wb") as file:
-        file.write(download_request.content)
+        print(f"Status code: {download_request.status_code}")
 
 
 # Getting credentials
@@ -118,14 +119,15 @@ def get_credentials():
     payload["username"] = input("\nEnter your username: ").strip()
     
     # Checking for username validity
-    if payload["username"] == "":
+    while payload["username"] == "":
         print("\nEnter a valid username!\n")
-        sys.exit()
+        payload["username"] = input("Enter your username: ").strip()
+        
 
     # Getting password from console
     payload["password"] = input("Enter your password: ").strip()
 
     # Checking for password validity
-    if payload["password"] == "" and len(payload["password"]) < 8:
+    while payload["password"] == "" and len(payload["password"]) < 8:
         print("\nEnter a valid password!\n")
-        sys.exit()
+        payload["password"] = input("Enter your password: ").strip()
