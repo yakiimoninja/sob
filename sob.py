@@ -28,6 +28,7 @@ while not ((flag == "b" or flag == "r" or flag == "x") and flag != ""):
     flag = input("> ").strip()
 
 
+# Looping the main menu
 while True:
 
     # The backup option
