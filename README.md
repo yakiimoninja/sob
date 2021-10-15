@@ -1,6 +1,6 @@
 # Songs Osu! Backup (s.o.b.)
 
-**Got a new computer and you want to migrate all your osu! songs?\
+**Got a new computer and you want to migrate all your osu! beatmaps?\
 No need to s.o.b. over having to manually do this. (pun intended :wink:)\
 S.o.b. will back up and restore your songs for you.**
 
