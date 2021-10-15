@@ -31,8 +31,13 @@ S.o.b. will back up and restore your songs for you.**
 
 ### Exe file:
 
-  Execute the `sob.exe` and you'll be prompted with remaining instructions there.\
-  If you are worried about viruses inspect and execute the script yourself or build an `exe` with `pyinstaller`.\
+  Execute the `sob.exe` and you'll be prompted with remaining instructions there.
+  
+  If `sob.exe` doesn't seem to start you might need to unblock it.\
+  `Right click -> Properties -> Unblock -> Apply`
+  
+  If you are worried about the antivirus and virustotal flags you shouldn't be, these are false positives.\
+  But don't take my word for it, inspect the code yourself and build an `exe` with `pyinstaller` if you want.\
   See above "***If you want to build from source***".
   
 ### Script file:
