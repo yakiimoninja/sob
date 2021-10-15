@@ -10,10 +10,10 @@ def create_folder(make_songs_folder: bool):
                 pass
             else:
                 os.mkdir("osu!backup/songs")
-
         else:
             os.mkdir("osu!backup")
             os.mkdir("osu!backup/songs")
+            
     else:
         # Creating the backup folder if it doesnt exist
         if os.path.exists("osu!backup"):

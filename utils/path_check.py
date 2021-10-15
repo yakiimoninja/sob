@@ -20,10 +20,8 @@ def osu_path_check(path_param, default_path: bool):
         is_path_correct = True
 
     else:
-
         # Displaying different messages if osu! folder is not found
         if default_path == True:
-            
             # If osu! is not found at the default location
             print("\nThe 'osu!' folder was not found at the default location!")
             is_path_correct = False

@@ -62,10 +62,11 @@ def download(song_filename_list, song_link_list):
 
         # Checking to see if login was succesful
         if login_request.status_code == 200:
+            
             print("\nSuccesfully authenticated!")
             print(f"Status code: {login_request.status_code}\n")
 
-
+            # Time measuring
             start_time = time.time()
 
             # Multi threading
@@ -73,7 +74,7 @@ def download(song_filename_list, song_link_list):
                     with concurrent.futures.ThreadPoolExecutor() as executor:
                         executor.submit(get_file, song_filename_list, song_link_list, i, s)
 
-
+            # Time measuring
             end_time = time.time()
             formatted_time = "{:.1f}".format(end_time - start_time)
             

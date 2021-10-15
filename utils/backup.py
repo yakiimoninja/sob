@@ -14,7 +14,7 @@ def backup(song_list, song_dir_path):
     # Iterating the list of folder names
     for x in range(len(folder_list)):
 
-        # Skips the Failed folder if it exists
+        # Skips the "Failed" folder if it exists
         if folder_list[x] == "Failed":
             continue
 
@@ -59,7 +59,7 @@ def backup(song_list, song_dir_path):
 
         # Checking the value of "No Video" to format the title and link accordingly
         if "[no video]" in folder_list[x]:
-
+            
             # Formatting the string to remove the "no video"
             # and setting it as the new title
             song_title = song_title[:-11]
@@ -71,7 +71,7 @@ def backup(song_list, song_dir_path):
         else:
             # Constructing the link of the song
             song_link = "https://osu.ppy.sh/beatmapsets/" + song_number + "/download"
-        
+
         # Setting the link in the songs list (to be json)
         song_list[x]["Link"] = song_link
 
@@ -79,9 +79,11 @@ def backup(song_list, song_dir_path):
         beatmap_filename = folder_list[x] + ".osz"
         song_list[x]["File Name"] = beatmap_filename
 
+
         # Opening and writing the backup in a json file            
         with open("osu!backup/osu!backup.json", "w") as output:
             json.dump(song_list, output, ensure_ascii= False, indent= 4)
+    
     
     # Ending print
     print(f"\nSuccesfully backed up {len(song_list)} songs!")
