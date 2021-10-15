@@ -38,7 +38,7 @@ while True:
         path_param = ""
         path_param, is_path_correct = path_check.osu_path_check(path_param, default_path=True)
 
-        # Checking for path validity
+        # Checking for provided path validity
         while is_path_correct != True:
             print("Please provide the full path to the 'osu!' folder.\n")
             path_param = input("> ").strip()
@@ -55,7 +55,7 @@ while True:
         path_param = ""
         path_param, is_path_correct = path_check.backup_path_check(path_param, default_path=True)
 
-        # Checking for path validity
+        # Checking for provided path validity
         while is_path_correct != True:
         
             print("Please provide the full path to the 'osu!backup' folder.\n")
