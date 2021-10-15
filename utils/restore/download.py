@@ -75,7 +75,7 @@ def download(song_filename_list, song_link_list):
 
 
             end_time = time.time()
-            formatted_time = "{:.2f}".format(end_time - start_time)
+            formatted_time = "{:.1f}".format(end_time - start_time)
             
             # Ending print
             print(f"\nFinished downloading {len(song_filename_list)} beatmaps in {formatted_time} second(s)!")
