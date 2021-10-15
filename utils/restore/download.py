@@ -62,7 +62,7 @@ def download(song_filename_list, song_link_list):
 
         # Checking to see if login was succesful
         if login_request.status_code == 200:
-            
+
             print("\nSuccesfully authenticated!")
             print(f"Status code: {login_request.status_code}\n")
 
@@ -123,7 +123,6 @@ def get_credentials():
     while payload["username"] == "":
         print("\nEnter a valid username!\n")
         payload["username"] = input("Enter your username: ").strip()
-        
 
     # Getting password from console
     payload["password"] = input("Enter your password: ").strip()
