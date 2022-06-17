@@ -11,9 +11,6 @@ S.o.b. will back up and restore your songs for you.**
 
 ### To use the restoration functionality you will need an osu! account!
 
-### If you using the executable file:
-- You will only need an osu! account (if you plan to restore).
-
 ### If you are running the script file:
 - You will need an osu! account (if you plan to restore).
 - You will need python 3.
