@@ -53,5 +53,4 @@ S.o.b. will back up and restore your songs for you.**
   
 ### Restoring:
 
-  You ***will*** be promted to provide your account credentials.\
   This will create a `songs` folder in the same directory as the script, containing all the downloaded `osz` beatmap files.
