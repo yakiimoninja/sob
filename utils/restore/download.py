@@ -7,8 +7,8 @@ url = "https://osu.ppy.sh/home"
 login_url = "https://osu.ppy.sh/session"
 
 payload = {
-    "username": "",
-    "password": "",
+    "username": "osu_account21",
+    "password": "'+Y4-kok5/{9~:t>A",
     "_token": ""
 }
 
@@ -36,9 +36,6 @@ def download(song_filename_list, song_link_list):
 
     song_filename_list = song_filename_list
     song_link_list = song_link_list
-
-    # Getting credentials
-    get_credentials()
 
     # Opening a request session
     with requests.Session() as s:
@@ -111,23 +108,3 @@ def get_file(song_filename_list, song_link_list, i, s):
     else:
         print("\nFailed to download!")
         print(f"Status code: {download_request.status_code}")
-
-
-# Getting credentials
-def get_credentials():
-
-    # Getting username from console
-    payload["username"] = input("\nEnter your username: ").strip()
-    
-    # Checking for username validity
-    while payload["username"] == "":
-        print("\nEnter a valid username!\n")
-        payload["username"] = input("Enter your username: ").strip()
-
-    # Getting password from console
-    payload["password"] = input("Enter your password: ").strip()
-
-    # Checking for password validity
-    while payload["password"] == "" and len(payload["password"]) < 8:
-        print("\nEnter a valid password!\n")
-        payload["password"] = input("Enter your password: ").strip()
