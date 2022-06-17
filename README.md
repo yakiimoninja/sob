@@ -6,42 +6,11 @@ S.o.b. will back up and restore your songs for you.**
 
 <img src="https://user-images.githubusercontent.com/80072600/137412880-10a1f486-801a-42cd-9b88-5223e2caff97.png" width="350" height="350" />
 
-
-## Requirements
-
-### To use the restoration functionality you will need an osu! account!
-
-### If you are running the script file:
-- You will need an osu! account (if you plan to restore).
+### Running the script file:
 - You will need python 3.
 - You will need to install the `requests` library.
-- To install `requests` library execute: `python -m pip install requests`
-
-- ### If you want to build from source:
-  - Install python 3.
-  - Install `requests` library with: `python -m pip install requests`.
-  - Install `pyinstaller` with: `python -m pip install pyinstaller`.
-  - Build an `exe` with: `pyinstaller sob.py --clean -F`.
-
-
-## Usage
-
-### Exe file:
-  
-  You can get the `exe` from the [releases](https://github.com/yakiimoninja/sob/releases/latest) tab.
-  
-  Execute the `sob.exe` and you'll be prompted with remaining instructions there.
-  
-  If `sob.exe` doesn't seem to start you might need to unblock it.\
-  `Right click -> Properties -> Unblock -> Apply`
-  
-  If you are worried about the antivirus and virustotal flags you shouldn't be, these are false positives.\
-  But don't take my word for it, inspect the code yourself and build an `exe` with `pyinstaller` if you want.\
-  See above "***If you want to build from source***".
-  
-### Script file:
-
-  After you've installed the requirements listed above, execute: `python sob.py`
+- To install `requests` library execute: `python -m pip install requests`.
+- After you've installed the requirements listed above, execute: `python sob.py`.
 
 ### Backing up:
 
